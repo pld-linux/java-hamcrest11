@@ -16,18 +16,18 @@
 %endif
 
 %define		rel	1
-%define		srcname	hamcrest
+%define		srcname	hamcrest11
 %include	/usr/lib/rpm/macros.java
 Summary:	Hamcrest - a library of matchers
 Summary(pl.UTF-8):	Hamcrest - biblioteka klas dopasowujących
-Name:		java-hamcrest
+Name:		java-hamcrest11
 Version:	1.1
 Release:	%{bootstrap_release %rel}
 License:	BSD
 Group:		Libraries/Java
-Source0:	http://hamcrest.googlecode.com/files/%{srcname}-%{version}.tgz
+Source0:	http://hamcrest.googlecode.com/files/hamcrest-%{version}.tgz
 # Source0-md5:	1bd4fd301c1a0dc748082378a59cb281
-Patch0:		%{srcname}-nosrc.patch
+Patch0:		hamcrest-nosrc.patch
 Patch1:		javadoc-build.patch
 URL:		http://code.google.com/p/hamcrest/
 %if %{without binary}
@@ -50,9 +50,15 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Hamcrest is a library of matchers, which can be combined in to create
 flexible expressions of intent in tests.
 
+This package contains hamcrest v. 1.1. For the newest release see
+java-hamcrest package.
+
 %description -l pl.UTF-8
 Hamcrest to biblioteka klas dopasowujących, które można łączyć w celu
 utworzenia elastycznych wyrażeń do wykorzystania w testach.
+
+Ten pakiet zawiera wersję 1.1 biblioteki hamcrest. Najnowsze wydanie
+biblioteki można znaleźć w pakiecie java-hamcrest.
 
 %package javadoc
 Summary:	Javadoc manual for hamcrest
@@ -80,7 +86,7 @@ Source code of %{srcname}.
 Kod źródłowy %{srcname}.
 
 %prep
-%setup -q -n %{srcname}-%{version}
+%setup -q -n hamcrest-%{version}
 
 %undos build.xml
 
@@ -141,8 +147,8 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_javadir}
 
 for f in core generator integration library; do
-	cp -a build/hamcrest-$f-%{version}.jar $RPM_BUILD_ROOT%{_javadir}
-	ln -sf hamcrest-$f-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/hamcrest-$f.jar
+	cp -a build/hamcrest-$f-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}-$f-%{version}.jar
+	ln -sf hamcrest-$f-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}-$f.jar
 done
 
 %if %{with javadoc}
