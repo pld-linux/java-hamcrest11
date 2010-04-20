@@ -15,7 +15,7 @@
 %undefine	with_javadoc
 %endif
 
-%define		rel	1
+%define		rel	2
 %define		srcname	hamcrest11
 %include	/usr/lib/rpm/macros.java
 Summary:	Hamcrest - a library of matchers
@@ -148,7 +148,7 @@ install -d $RPM_BUILD_ROOT%{_javadir}
 
 for f in core generator integration library; do
 	cp -a build/hamcrest-$f-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}-$f-%{version}.jar
-	ln -sf hamcrest-$f-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}-$f.jar
+	ln -sf %{srcname}-$f-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}-$f.jar
 done
 
 %if %{with javadoc}
