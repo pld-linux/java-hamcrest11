@@ -135,12 +135,14 @@ EOF
 	-Dversion=%{version}
 %endif
 
+%if %{without binary}
 # source
 %jar cf %{srcname}.src.jar -C build/temp/hamcrest-library/generated-code .
 %jar uf %{srcname}.src.jar -C build/temp/hamcrest-core/generated-code .
 for I in examples integration library generator core; do
 	%jar uf %{srcname}.src.jar -C hamcrest-$I/src/main/java .
 done
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -158,9 +160,11 @@ cp -a build/javadoc/* $RPM_BUILD_ROOT%{_javadocdir}/%{srcname}-%{version}
 ln -s %{srcname}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{srcname} # ghost symlink
 %endif
 
+%if %{without binary}
 #source
 install -d $RPM_BUILD_ROOT%{_javasrcdir}
 cp -a %{srcname}.src.jar $RPM_BUILD_ROOT%{_javasrcdir}/%{srcname}.src.jar
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -187,6 +191,8 @@ ln -nfs %{srcname}-%{version} %{_javadocdir}/%{srcname}
 %ghost %{_javadocdir}/%{srcname}
 %endif
 
+%if %{without binary}
 %files source
 %defattr(644,root,root,755)
 %{_javasrcdir}/%{srcname}.src.jar
+%endif
