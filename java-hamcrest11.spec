@@ -17,7 +17,6 @@
 
 %define		rel	2
 %define		srcname	hamcrest11
-%include	/usr/lib/rpm/macros.java
 Summary:	Hamcrest - a library of matchers
 Summary(pl.UTF-8):	Hamcrest - biblioteka klas dopasowujących
 Name:		java-hamcrest11
